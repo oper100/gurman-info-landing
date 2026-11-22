@@ -1,0 +1,22 @@
+# Залежності й збірка
+node_modules/
+dist/
+build/
+
+# Системні файли
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Редактори й IDE
+.vscode/
+.idea/
+*.swp
+
+# Логи й тимчасові файли
+*.log
+*.tmp
+
+# Секрети
+.env
+.env.*
