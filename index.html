@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth scroll-pt-20 motion-reduce:scroll-auto">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гурман-Інфо — підбір пар «сир + вино»</title>
+    <meta
+      name="description"
+      content="Гурман-Інфо — цифровий каталог українських крафтових сирів і вин із підбором гастрономічних пар за смаковим профілем.">
+
+    <!-- Google Fonts: Playfair Display (заголовки) і Inter (інтерфейс), один підключений стиль -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet">
+    <!-- Font Awesome 6 через CDN: піктограми інтерфейсу -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="assets/logo/logo.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#6b2638">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Гурман-Інфо — підбір пар «сир + вино»">
+    <meta property="og:description" content="Каталог українських крафтових сирів і вин із підбором гастрономічних пар за смаковим профілем.">
+    <meta property="og:image" content="https://magnificent-pavlova-0ef064.netlify.app/assets/images/og-cover.jpg">
+
+    <!-- Tailwind CSS через CDN (режим Play CDN) + власна тема, потім власні стилі -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/custom-styles.css">
+    <script src="js/menu.js" defer></script>
+    <script src="js/forms.js" defer></script>
+    <script src="js/video.js" defer></script>
+  </head>
+
+  <body id="top" class="break-words bg-canvas font-body text-lg text-ink">
+    <a
+      class="sr-only rounded-lg bg-primary px-4 py-3 text-on-primary focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-30"
+      href="#main"
+      >Перейти до основного вмісту</a
+    >
+
+    <!-- Шапка: логотип, кнопка меню (мобільний), головна навігація, швидка дія -->
+    <header class="sticky top-0 z-20 border-b border-line-subtle bg-surface">
+      <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30">
+        <div class="flex flex-wrap items-center justify-between gap-x-2 sm:gap-x-4 lg:gap-x-6">
+          <a class="inline-flex min-h-16 items-center gap-2 no-underline sm:min-h-20 sm:gap-3" href="#top">
+            <img class="size-8 sm:size-10" src="assets/logo/logo.svg" alt="" width="40" height="40">
+            <span class="font-heading text-xl font-semibold text-primary sm:text-logo">Гурман-Інфо</span>
+          </a>
+
+          <button
+            class="inline-flex size-11 items-center justify-center rounded-full border border-line-subtle transition-colors duration-150 hover:bg-surface-muted lg:hidden"
+            type="button"
+            aria-label="Відкрити меню"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            data-menu-toggle>
+            <i class="fa-solid fa-bars text-base" aria-hidden="true" data-icon-open></i>
+            <i class="fa-solid fa-xmark hidden text-base" aria-hidden="true" data-icon-close></i>
+          </button>
+
+          <nav
+            id="site-nav"
+            class="hidden w-full border-t border-line-subtle lg:block lg:w-auto lg:border-0"
+            aria-label="Основна навігація">
+            <ul class="flex flex-col py-2 lg:flex-row lg:items-center lg:gap-6 lg:py-0">
+              <li><a class="block min-h-11 py-3 text-base no-underline hover:text-primary hover:underline lg:text-sm" href="#benefits">Переваги</a></li>
+              <li><a class="block min-h-11 py-3 text-base no-underline hover:text-primary hover:underline lg:text-sm" href="#how">Як це працює</a></li>
+              <li><a class="block min-h-11 py-3 text-base no-underline hover:text-primary hover:underline lg:text-sm" href="#popular">Популярні пари</a></li>
+              <li><a class="block min-h-11 py-3 text-base no-underline hover:text-primary hover:underline lg:text-sm" href="#producers">Виробники</a></li>
+              <li><a class="block min-h-11 py-3 text-base no-underline hover:text-primary hover:underline lg:text-sm" href="#contacts">Контакти</a></li>
+              <li class="pt-2 lg:hidden">
+                <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-primary text-on-primary hover:border-primary-hover hover:bg-primary-hover active:bg-primary-pressed w-full" href="#pairing">Підібрати пару</a>
+              </li>
+            </ul>
+          </nav>
+
+          <a class="hidden min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-primary text-on-primary hover:border-primary-hover hover:bg-primary-hover active:bg-primary-pressed lg:inline-flex" href="#pairing">Підібрати пару</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Hero: фото на всю ширину зі світлим градієнтом (текст лишається темним), картка результату підбору -->
+      <section class="relative isolate overflow-hidden bg-canvas" aria-labelledby="hero-title">
+        <picture class="block lg:absolute lg:inset-0 lg:-z-10">
+          <source srcset="assets/images/hero.webp" type="image/webp">
+          <img
+            class="h-56 w-full object-cover object-right sm:h-72 lg:h-full"
+            src="assets/images/hero.jpg"
+            alt=""
+            width="1376"
+            height="768"
+            fetchpriority="high">
+        </picture>
+        <div class="absolute inset-0 -z-10 hidden bg-gradient-to-r from-canvas from-45% to-transparent to-80% lg:block" aria-hidden="true"></div>
+        <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30 relative py-8 sm:py-10 lg:py-24">
+          <div class="flex max-w-lg flex-col gap-6">
+            <h1 class="break-words font-heading text-h1-compact font-bold md:text-h1" id="hero-title">
+              Ідеальна пара сиру й&nbsp;вина — за&nbsp;10&nbsp;секунд
+            </h1>
+            <p class="text-ink-muted">
+              Каталог українських крафтових сирів і вин. Підбирайте поєднання за смаковим профілем без складного сомельє-жаргону.
+            </p>
+            <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+              <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-primary text-on-primary hover:border-primary-hover hover:bg-primary-hover active:bg-primary-pressed w-full sm:w-auto sm:whitespace-nowrap" href="#pairing">Підібрати ідеальну пару</a>
+              <a class="inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-primary no-underline hover:underline sm:whitespace-nowrap" href="#how"
+                >Дивитися, як це працює <i class="fa-solid fa-arrow-right text-base" aria-hidden="true"></i></a
+              >
+            </div>
+            <ul class="flex flex-wrap gap-2" aria-label="Особливості сервісу">
+              <li><span class="inline-flex items-center rounded-full border border-line bg-surface px-4 py-2 text-sm">Пояснення збігу</span></li>
+              <li class="max-sm:hidden"><span class="inline-flex items-center rounded-full border border-line bg-surface px-4 py-2 text-sm">Сир → вино й навпаки</span></li>
+              <li><span class="inline-flex items-center rounded-full border border-line bg-surface px-4 py-2 text-sm">Без реєстрації</span></li>
+            </ul>
+          </div>
+          <div class="mt-8 rounded-2xl border border-line-subtle bg-surface p-5 shadow-card-hover motion-safe:animate-fade-up lg:absolute lg:bottom-12 lg:right-12 lg:mt-0 lg:w-80 xl:right-30">
+            <p class="text-xs font-semibold uppercase tracking-wide text-ink-muted">Приклад збігу</p>
+            <div class="mt-2 flex items-start justify-between gap-3">
+              <p class="min-w-0 break-words font-body text-lg font-bold">Гауда + пінот нуар</p>
+              <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary">86% збіг</p>
+            </div>
+            <progress class="mt-3 h-3 w-full" value="86" max="100" aria-label="Відсоток збігу пари Гауда і пінот нуар">86%</progress>
+            <p class="mt-3 text-sm text-ink-muted">М'які танини підкреслюють горіхові ноти витриманого сиру</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Переваги -->
+      <section class="py-10 md:py-16" id="benefits" aria-labelledby="benefits-title">
+        <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30">
+          <h2 class="mb-4 break-words font-heading text-h2-compact font-semibold md:text-h2" id="benefits-title">Чому «Гурман-Інфо»</h2>
+          <ul class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+            <li class="flex min-w-0">
+              <article class="flex w-full min-w-0 items-start gap-4 rounded-2xl border border-line-subtle bg-surface p-4 shadow-card sm:flex-col sm:p-6">
+                <span class="shrink-0"><img class="size-14" src="assets/icons/icon-pairing.svg" alt="" width="56" height="56" loading="lazy" decoding="async"></span>
+                <div class="min-w-0">
+                  <h3 class="break-words font-body text-lg font-bold">Розумний підбір</h3>
+                  <p class="mt-1 text-sm text-ink-muted">Пояснення, чому пара працює: кислотність, регіон, інтенсивність</p>
+                </div>
+              </article>
+            </li>
+            <li class="flex min-w-0">
+              <article class="flex w-full min-w-0 items-start gap-4 rounded-2xl border border-line-subtle bg-surface p-4 shadow-card sm:flex-col sm:p-6">
+                <span class="shrink-0"><img class="size-14" src="assets/icons/icon-region.svg" alt="" width="56" height="56" loading="lazy" decoding="async"></span>
+                <div class="min-w-0">
+                  <h3 class="break-words font-body text-lg font-bold">Українські виробники</h3>
+                  <p class="mt-1 text-sm text-ink-muted">Каталог крафтових сирів і вин з ферм і виноробень</p>
+                </div>
+              </article>
+            </li>
+            <li class="flex min-w-0">
+              <article class="flex w-full min-w-0 items-start gap-4 rounded-2xl border border-line-subtle bg-surface p-4 shadow-card sm:flex-col sm:p-6">
+                <span class="shrink-0"><img class="size-14" src="assets/icons/icon-taste.svg" alt="" width="56" height="56" loading="lazy" decoding="async"></span>
+                <div class="min-w-0">
+                  <h3 class="break-words font-body text-lg font-bold">Точні характеристики</h3>
+                  <p class="mt-1 text-sm text-ink-muted">Смаковий профіль, витримка, інтенсивність і регіон продукту</p>
+                </div>
+              </article>
+            </li>
+            <li class="flex min-w-0">
+              <article class="flex w-full min-w-0 items-start gap-4 rounded-2xl border border-line-subtle bg-surface p-4 shadow-card sm:flex-col sm:p-6">
+                <span class="shrink-0"><span class="inline-flex size-14 items-center justify-center"><i class="fa-solid fa-calendar-week text-icon text-primary" aria-hidden="true"></i></span></span>
+                <div class="min-w-0">
+                  <h3 class="break-words font-body text-lg font-bold">Сезонні добірки</h3>
+                  <p class="mt-1 text-sm text-ink-muted">Щотижня — три пари до сезонних продуктів у вашу пошту</p>
+                </div>
+              </article>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Як це працює: кроки, пояснення відсотка збігу і медіа: відео YouTube (iframe, співвідношення 16:9) -->
+      <section class="bg-surface py-10 md:py-16" id="how" aria-labelledby="how-title">
+        <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30 grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-16">
+          <div class="flex flex-col gap-6">
+            <div>
+              <h2 class="mb-4 break-words font-heading text-h2-compact font-semibold md:text-h2" id="how-title">Як це працює</h2>
+              <p class="text-ink-muted">Наш алгоритм порівнює кислотність, жирність та інтенсивність сиру й вина і показує кожен внесок у підсумковий відсоток збігу.</p>
+            </div>
+            <ol class="flex flex-col gap-5">
+              <li class="flex gap-4">
+                <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-base font-semibold text-on-primary" aria-hidden="true">1</span>
+                <div>
+                  <h3 class="font-body text-lg font-bold">Оберіть, що у вас є</h3>
+                  <p class="text-sm text-ink-muted">Сир або вино: сервіс підбере пару в обидва боки.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-base font-semibold text-on-primary" aria-hidden="true">2</span>
+                <div>
+                  <h3 class="font-body text-lg font-bold">Отримайте відсоток збігу</h3>
+                  <p class="text-sm text-ink-muted">Відсоток показує, наскільки пара збігається за смаковим профілем.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-base font-semibold text-on-primary" aria-hidden="true">3</span>
+                <div>
+                  <h3 class="font-body text-lg font-bold">Прочитайте пояснення</h3>
+                  <p class="text-sm text-ink-muted">Кожен збіг має причину: видно внесок кожного параметра.</p>
+                </div>
+              </li>
+            </ol>
+            <article class="flex flex-col gap-4 rounded-2xl border border-line-subtle bg-canvas p-6 shadow-card max-sm:hidden sm:p-8" aria-labelledby="explain-title">
+              <h3 class="font-body text-lg font-bold" id="explain-title">Приклад пояснення збігу</h3>
+              <p class="font-heading text-h3 font-semibold text-primary">94% збіг</p>
+              <progress class="h-3 w-full" value="94" max="100" aria-label="Відсоток збігу">94%</progress>
+              <ul class="flex flex-col gap-3">
+                <li class="flex items-start gap-3 text-base before:mt-2.5 before:size-2 before:shrink-0 before:rounded-full before:bg-secondary before:content-['']">Висока кислотність вина врівноважує жирність сиру</li>
+                <li class="flex items-start gap-3 text-base before:mt-2.5 before:size-2 before:shrink-0 before:rounded-full before:bg-secondary before:content-['']">Солоність сиру добре поєднується з фруктовістю</li>
+                <li class="flex items-start gap-3 text-base before:mt-2.5 before:size-2 before:shrink-0 before:rounded-full before:bg-secondary before:content-['']">Інтенсивність смаку обох продуктів близька</li>
+              </ul>
+            </article>
+          </div>
+          <div id="video" class="lg:sticky lg:top-24">
+            <!-- Відео YouTube: автовідтворення без звуку, по колу, без панелі керування плеєра; пауза і звук — власні кнопки (js/video.js).
+               Адреса плеєра лежить у data-src і підставляється в src, коли відео наближається до екрана: так плеєр (≈1 МБ) не вантажиться з першим екраном -->
+            <div class="relative aspect-video w-full overflow-hidden rounded-2xl bg-ink shadow-card" data-video>
+              <iframe
+                class="pointer-events-none size-full border-0"
+                tabindex="-1"
+                data-src="https://www.youtube-nocookie.com/embed/9RWkkGNMfSA?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=9RWkkGNMfSA&amp;controls=0&amp;playsinline=1&amp;rel=0&amp;iv_load_policy=3&amp;disablekb=1&amp;enablejsapi=1&amp;modestbranding=1"
+                title="Відео про сервіс «Гурман-Інфо»"
+                allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+              <img class="pointer-events-none absolute inset-0 size-full object-cover transition-opacity duration-700" src="assets/images/video-poster.webp" alt="" width="1280" height="720" loading="lazy" decoding="async" data-video-cover>
+              <div class="absolute bottom-3 right-3 flex gap-2">
+                <button class="inline-flex size-11 items-center justify-center rounded-full border border-line-subtle bg-surface text-primary shadow-card transition-colors duration-150 hover:bg-canvas" type="button" aria-label="Пауза" aria-pressed="false" data-video-toggle><i class="fa-solid fa-pause text-base" aria-hidden="true"></i></button>
+                <button class="inline-flex size-11 items-center justify-center rounded-full border border-line-subtle bg-surface text-primary shadow-card transition-colors duration-150 hover:bg-canvas" type="button" aria-label="Увімкнути звук" aria-pressed="false" data-video-sound><i class="fa-solid fa-volume-xmark text-base" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Підбір пари: реагує на ввід (дані пар — у JSON-блоку внизу сторінки) -->
+      <section class="py-10 md:py-16" id="pairing" aria-labelledby="pairing-title">
+        <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30">
+          <h2 class="mb-4 break-words font-heading text-h2-compact font-semibold md:text-h2" id="pairing-title">Підберіть пару прямо зараз</h2>
+          <p class="text-ink-muted">Оберіть, що у вас є, і отримайте рекомендації з поясненням</p>
+
+          <div class="mt-8 flex flex-col gap-6 rounded-3xl border border-line-subtle bg-surface p-4 sm:p-8">
+            <form class="flex flex-col gap-6" action="#" method="get" data-pairing-form>
+              <fieldset class="flex min-w-0 flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+                <legend class="float-left p-0 text-sm font-semibold">Що у вас є?</legend>
+                <div class="inline-flex w-full gap-1 rounded-full bg-surface-muted p-1 sm:w-auto">
+                  <label
+                    class="flex-1 cursor-pointer rounded-full px-2 py-3 text-center text-sm font-semibold has-[:checked]:bg-primary has-[:checked]:text-on-primary has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-text sm:flex-none sm:whitespace-nowrap sm:px-6">
+                    <input class="sr-only" type="radio" id="mode-cheese" name="mode" value="cheese" checked>
+                    Сир → Вино
+                  </label>
+                  <label
+                    class="flex-1 cursor-pointer rounded-full px-2 py-3 text-center text-sm font-semibold has-[:checked]:bg-primary has-[:checked]:text-on-primary has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-text sm:flex-none sm:whitespace-nowrap sm:px-6">
+                    <input class="sr-only" type="radio" id="mode-wine" name="mode" value="wine">
+                    Вино → Сир
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-end">
+                <div class="flex flex-col gap-2 sm:flex-1">
+                  <label class="text-sm font-semibold" for="cheese-name" data-pair-label>Назва сиру</label>
+                  <input
+                    class="min-h-12 w-full rounded-xl border-btn border-line bg-surface px-4 py-3 text-base placeholder:text-ink-muted"
+                    type="search"
+                    id="cheese-name"
+                    name="cheese"
+                    placeholder="Почніть вводити назву сиру…" data-pair-input
+                    autocomplete="off">
+                </div>
+                <button class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-primary text-on-primary hover:border-primary-hover hover:bg-primary-hover active:bg-primary-pressed w-full sm:w-auto" type="submit">Підібрати пару</button>
+              </div>
+
+              <ul class="flex flex-wrap gap-2" aria-label="Швидкий вибір сиру" data-chips="cheese">
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Козячий сир</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Дор Блю</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Бринза</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Гауда</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Моцарела</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Брі</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Пекоріно</button></li>
+              </ul>
+              <ul class="hidden flex-wrap gap-2" aria-label="Швидкий вибір вина" data-chips="wine">
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Шардоне</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Совіньйон</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Рислінг</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Пінот нуар</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Ігристе</button></li>
+                <li><button class="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm transition-colors duration-150 hover:bg-surface-muted" type="button" data-fill>Токай</button></li>
+              </ul>
+            </form>
+
+            <p class="font-body text-lg font-bold" id="top3-title" tabindex="-1" data-result-title>Приклад результату: топ-3 рекомендації</p>
+            <p class="text-sm text-ink-muted empty:hidden" id="pair-status" role="status"></p>
+            <ol class="relative -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3" id="pair-results">
+            <li class="flex w-4/5 shrink-0 snap-start sm:w-auto">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-canvas shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-card w-full object-cover" src="assets/images/pair-goat-white.webp" alt="Козячий сир і келих білого вина на дерев'яній дошці" width="800" height="600" loading="lazy" decoding="async">
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <header class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+                    <h3 class="min-w-0 grow basis-40 break-words font-body text-lg font-bold">Козячий сир + біле вино</h3>
+                    <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary">94% збіг</p>
+                  </header>
+                  <p class="text-sm text-ink-muted">Кислотність вина балансує жирність сиру</p>
+                  <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-4 sm:px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-auto w-full" href="#subscribe">Підписатися на добірки<span class="sr-only">: Козячий сир + біле вино</span></a>
+                </div>
+              </article>
+            </li>
+            <li class="flex w-4/5 shrink-0 snap-start sm:w-auto">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-canvas shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-card w-full object-cover" src="assets/images/pair-blue-tokaji.webp" alt="Блакитний сир із цвіллю, мед і келих бурштинового десертного вина" width="800" height="600" loading="lazy" decoding="async">
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <header class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+                    <h3 class="min-w-0 grow basis-40 break-words font-body text-lg font-bold">Дор Блю + десертне вино</h3>
+                    <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary">88% збіг</p>
+                  </header>
+                  <p class="text-sm text-ink-muted">Солодкість вина пом'якшує солоність сиру</p>
+                  <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-4 sm:px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-auto w-full" href="#subscribe">Підписатися на добірки<span class="sr-only">: Дор Блю + десертне вино</span></a>
+                </div>
+              </article>
+            </li>
+            <li class="flex w-4/5 shrink-0 snap-start sm:w-auto">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-canvas shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-card w-full object-cover" src="assets/images/pair-brie-chardonnay.webp" alt="Сир брі з білою скоринкою і келих вина на дерев'яній дошці" width="800" height="600" loading="lazy" decoding="async">
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <header class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+                    <h3 class="min-w-0 grow basis-40 break-words font-body text-lg font-bold">Брі + ігристе вино</h3>
+                    <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary">81% збіг</p>
+                  </header>
+                  <p class="text-sm text-ink-muted">Бульбашки освіжають вершкову текстуру</p>
+                  <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-4 sm:px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-auto w-full" href="#subscribe">Підписатися на добірки<span class="sr-only">: Брі + ігристе вино</span></a>
+                </div>
+              </article>
+            </li>
+            <template id="pair-card-template">
+            <li class="flex w-4/5 shrink-0 snap-start sm:w-auto">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-canvas shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-card w-full object-cover" src="assets/images/pair-goat-white.webp" alt="" data-pair-img width="800" height="600" loading="lazy" decoding="async">
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <header class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+                    <h3 class="min-w-0 grow basis-40 break-words font-body text-lg font-bold" data-pair-title></h3>
+                    <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary" data-pair-pct></p>
+                  </header>
+                  <p class="text-sm text-ink-muted" data-pair-text></p>
+                  <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-4 sm:px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-auto w-full" href="#subscribe">Підписатися на добірки<span class="sr-only" data-pair-sr></span></a>
+                </div>
+              </article>
+            </li>
+            </template>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Популярні пари: на мобільному — горизонтальна карусель, від sm — сітка -->
+      <section class="bg-surface py-10 md:py-16" id="popular" aria-labelledby="popular-title">
+        <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30">
+          <h2 class="mb-4 break-words font-heading text-h2-compact font-semibold md:text-h2" id="popular-title">Популярні пари</h2>
+          <p class="text-ink-muted">Відсоток збігу — орієнтир за смаковим профілем.</p>
+          <ul class="relative -mx-4 mt-8 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
+            <li class="flex w-4/5 shrink-0 snap-start sm:w-auto">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-canvas shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-card w-full object-cover" src="assets/images/pair-brie-chardonnay.webp" alt="Сир брі з білою скоринкою і келих білого вина на дерев'яній дошці" width="800" height="600" loading="lazy" decoding="async">
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <header class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+                    <h3 class="min-w-0 grow basis-40 break-words font-body text-lg font-bold">Брі + шардоне</h3>
+                    <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary">92% збіг</p>
+                  </header>
+                  <p class="text-sm text-ink-muted">Кремова текстура сиру підсилюється маслянистими нотами вина</p>
+                  <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-4 sm:px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-auto w-full" href="#pairing" data-pair="Брі">Спробувати цю пару<span class="sr-only">: Брі + шардоне</span></a>
+                </div>
+              </article>
+            </li>
+            <li class="flex w-4/5 shrink-0 snap-start sm:w-auto">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-canvas shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-card w-full object-cover" src="assets/images/pair-pecorino-sparkling.webp" alt="Шматки твердого овечого сиру і келих ігристого вина" width="800" height="600" loading="lazy" decoding="async">
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <header class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+                    <h3 class="min-w-0 grow basis-40 break-words font-body text-lg font-bold">Пекоріно + ігристе</h3>
+                    <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary">90% збіг</p>
+                  </header>
+                  <p class="text-sm text-ink-muted">Мінеральна солоність і свіжі бульбашки врівноважують одна одну</p>
+                  <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-4 sm:px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-auto w-full" href="#pairing" data-pair="Пекоріно">Спробувати цю пару<span class="sr-only">: Пекоріно + ігристе</span></a>
+                </div>
+              </article>
+            </li>
+            <li class="flex w-4/5 shrink-0 snap-start sm:w-auto">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-canvas shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-card w-full object-cover" src="assets/images/pair-brynza-riesling.webp" alt="Біла бринза із зеленню і келих світлого вина" width="800" height="600" loading="lazy" decoding="async">
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <header class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+                    <h3 class="min-w-0 grow basis-40 break-words font-body text-lg font-bold">Бринза + рислінг</h3>
+                    <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary">87% збіг</p>
+                  </header>
+                  <p class="text-sm text-ink-muted">Легка кислинка вина підкреслює молочну солодкість</p>
+                  <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-4 sm:px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-auto w-full" href="#pairing" data-pair="Бринза">Спробувати цю пару<span class="sr-only">: Бринза + рислінг</span></a>
+                </div>
+              </article>
+            </li>
+            <li class="flex w-4/5 shrink-0 snap-start sm:w-auto">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-canvas shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-card w-full object-cover" src="assets/images/pair-gouda-pinot.webp" alt="Витримана гауда з горіхами і келих світло-червоного вина" width="800" height="600" loading="lazy" decoding="async">
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <header class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+                    <h3 class="min-w-0 grow basis-40 break-words font-body text-lg font-bold">Гауда + пінот нуар</h3>
+                    <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary">86% збіг</p>
+                  </header>
+                  <p class="text-sm text-ink-muted">М'які танини підкреслюють горіхові ноти витриманого сиру</p>
+                  <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-4 sm:px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-auto w-full" href="#pairing" data-pair="Гауда">Спробувати цю пару<span class="sr-only">: Гауда + пінот нуар</span></a>
+                </div>
+              </article>
+            </li>
+            <li class="flex w-4/5 shrink-0 snap-start sm:w-auto">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-canvas shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-card w-full object-cover" src="assets/images/pair-blue-tokaji.webp" alt="Блакитний сир із цвіллю, мед і келих бурштинового десертного вина" width="800" height="600" loading="lazy" decoding="async">
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <header class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+                    <h3 class="min-w-0 grow basis-40 break-words font-body text-lg font-bold">Дор Блю + токай</h3>
+                    <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary">85% збіг</p>
+                  </header>
+                  <p class="text-sm text-ink-muted">Солодке вино врівноважує гостроту блакитної цвілі</p>
+                  <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-4 sm:px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-auto w-full" href="#pairing" data-pair="Дор Блю">Спробувати цю пару<span class="sr-only">: Дор Блю + токай</span></a>
+                </div>
+              </article>
+            </li>
+            <li class="flex w-4/5 shrink-0 snap-start sm:w-auto">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-canvas shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-card w-full object-cover" src="assets/images/pair-mozzarella-sauvignon.webp" alt="Кульки моцарели з базиліком і келих білого вина" width="800" height="600" loading="lazy" decoding="async">
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <header class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+                    <h3 class="min-w-0 grow basis-40 break-words font-body text-lg font-bold">Моцарела + совіньйон</h3>
+                    <p class="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-on-secondary">83% збіг</p>
+                  </header>
+                  <p class="text-sm text-ink-muted">Свіжа кислотність підкреслює ніжний молочний смак</p>
+                  <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-4 sm:px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-auto w-full" href="#pairing" data-pair="Моцарела">Спробувати цю пару<span class="sr-only">: Моцарела + совіньйон</span></a>
+                </div>
+              </article>
+            </li>
+          </ul>
+          <p class="mt-1 text-sm text-ink-muted sm:hidden">Гортайте вбік, щоб побачити всі пари →</p>
+        </div>
+      </section>
+
+      <!-- Довіра: виробники-партнери і відгуки користувачів -->
+      <section class="py-10 md:py-16" id="producers" aria-labelledby="producers-title">
+        <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30">
+          <h2 class="mb-4 break-words font-heading text-h2-compact font-semibold md:text-h2" id="producers-title">Українські виробники</h2>
+          <p class="text-ink-muted">Сироварні та виноробні, з якими ми працюємо.</p>
+          <ul class="mt-8 grid grid-cols-2 gap-4 sm:gap-6 xl:grid-cols-4">
+            <li class="flex">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-surface shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-producer w-full object-cover" src="assets/images/producer-farm.webp" alt="Гірське пасовище з козами в Карпатах" width="600" height="400" loading="lazy" decoding="async">
+                <div class="flex flex-col gap-2 p-4 sm:p-5">
+                  <h3 class="min-w-0 break-words font-body text-base font-bold sm:text-lg">Ферма «Карпатська»</h3>
+                  <p class="text-sm text-ink-muted">Закарпаття</p>
+                  <p class="text-sm text-ink-muted">Козячі та овечі сири</p>
+                </div>
+              </article>
+            </li>
+            <li class="flex">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-surface shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-producer w-full object-cover" src="assets/images/producer-dairy.webp" alt="Головки твердого сиру на дерев'яних полицях у погребі" width="600" height="400" loading="lazy" decoding="async">
+                <div class="flex flex-col gap-2 p-4 sm:p-5">
+                  <h3 class="min-w-0 break-words font-body text-base font-bold sm:text-lg">Сироварня «Сонячна»</h3>
+                  <p class="text-sm text-ink-muted">Львівщина</p>
+                  <p class="text-sm text-ink-muted">Витримані тверді сири</p>
+                </div>
+              </article>
+            </li>
+            <li class="flex">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-surface shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-producer w-full object-cover" src="assets/images/producer-winery.webp" alt="Виноградник на схилі над річкою" width="600" height="400" loading="lazy" decoding="async">
+                <div class="flex flex-col gap-2 p-4 sm:p-5">
+                  <h3 class="min-w-0 break-words font-body text-base font-bold sm:text-lg">Виноробня «Дністер»</h3>
+                  <p class="text-sm text-ink-muted">Чернівеччина</p>
+                  <p class="text-sm text-ink-muted">Білі та ігристі вина</p>
+                </div>
+              </article>
+            </li>
+            <li class="flex">
+              <article class="flex w-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-surface shadow-card transition duration-200 ease-out hover:shadow-card-hover motion-safe:hover:-translate-y-1">
+                <img class="aspect-producer w-full object-cover" src="assets/images/producer-estate.webp" alt="Дубові бочки у винному льоху" width="600" height="400" loading="lazy" decoding="async">
+                <div class="flex flex-col gap-2 p-4 sm:p-5">
+                  <h3 class="min-w-0 break-words font-body text-base font-bold sm:text-lg">Маєток «Лиман»</h3>
+                  <p class="text-sm text-ink-muted">Одещина</p>
+                  <p class="text-sm text-ink-muted">Червоні та десертні вина</p>
+                </div>
+              </article>
+            </li>
+          </ul>
+          <h3 class="mt-12 font-body text-lg font-bold">Що кажуть користувачі</h3>
+          <ul class="mt-4 grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3">
+            <li class="flex">
+              <figure class="flex w-full flex-col justify-between gap-4 rounded-2xl border border-line-subtle bg-surface p-5 shadow-card">
+                <blockquote class="text-base"><p>«Купила брі до шардоне за підказкою сервісу — гості питали, де я знайшла таку пару.»</p></blockquote>
+                <figcaption class="text-sm font-semibold text-ink-muted">Ірина, Львів</figcaption>
+              </figure>
+            </li>
+            <li class="flex">
+              <figure class="flex w-full flex-col justify-between gap-4 rounded-2xl border border-line-subtle bg-surface p-5 shadow-card">
+                <blockquote class="text-base"><p>«Нарешті пояснення без заумі: бачу, чому гауда пасує до пінот нуар, і наступного разу добираю сама.»</p></blockquote>
+                <figcaption class="text-sm font-semibold text-ink-muted">Максим, Київ</figcaption>
+              </figure>
+            </li>
+            <li class="flex">
+              <figure class="flex w-full flex-col justify-between gap-4 rounded-2xl border border-line-subtle bg-surface p-5 shadow-card">
+                <blockquote class="text-base"><p>«Користуюся перед кожною дегустацією вдома. Бринза з рислінгом — відкриття.»</p></blockquote>
+                <figcaption class="text-sm font-semibold text-ink-muted">Олена, Чернівці</figcaption>
+              </figure>
+            </li>
+          </ul>
+          <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-transparent text-primary hover:bg-primary hover:text-on-primary active:bg-primary-pressed mt-8 w-full sm:w-auto" href="#subscribe">Підписатися на розсилку</a>
+        </div>
+      </section>
+
+      <!-- Медіа: інтерактивна карта (iframe) і динамічний віджет погоди (iframe) у бічному блоці aside -->
+      <section class="bg-surface py-10 md:py-16" id="contacts">
+        <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30">
+          <h2 class="mb-4 break-words font-heading text-h2-compact font-semibold md:text-h2">Де нас знайти</h2>
+          <p class="text-ink-muted">Дегустаційна кімната «Гурман-Інфо» у центрі Львова.</p>
+          <div class="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-3">
+            <div class="h-80 w-full overflow-hidden rounded-2xl border border-line-subtle shadow-card xl:col-span-2 xl:h-auto xl:min-h-96">
+              <iframe
+                class="size-full border-0"
+                src="https://www.google.com/maps?q=%D0%9F%D0%BB%D0%BE%D1%89%D0%B0+%D0%A0%D0%B8%D0%BD%D0%BE%D0%BA,+%D0%9B%D1%8C%D0%B2%D1%96%D0%B2&amp;hl=uk&amp;z=16&amp;output=embed"
+                title="Інтерактивна карта: площа Ринок, Львів"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <aside class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-1" aria-label="Інформація для візиту">
+              <section class="flex w-full flex-col gap-4 rounded-2xl border border-line-subtle bg-canvas p-6 shadow-card" aria-labelledby="address-title">
+                <h3 class="font-body text-lg font-bold" id="address-title">Адреса</h3>
+                <address class="text-base not-italic text-ink-muted">
+                  пл. Ринок, Львів<br>
+                  <a class="inline-flex min-h-11 items-center break-all text-primary hover:underline" href="mailto:hello@gurman-info.example">hello@gurman-info.example</a>
+                </address>
+                <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn border-primary bg-transparent px-6 py-3 text-base font-semibold text-primary no-underline transition-colors duration-150 ease-out hover:bg-surface-muted active:bg-line-subtle"
+                  href="https://www.google.com/maps/dir/?api=1&amp;destination=%D0%9F%D0%BB%D0%BE%D1%89%D0%B0+%D0%A0%D0%B8%D0%BD%D0%BE%D0%BA,+%D0%9B%D1%8C%D0%B2%D1%96%D0%B2"
+                  target="_blank"
+                  rel="noopener noreferrer">Прокласти маршрут<span class="sr-only"> (відкриється в новій вкладці)</span></a>
+              </section>
+              <section class="flex w-full flex-col gap-4 rounded-2xl border border-line-subtle bg-canvas p-6 shadow-card" aria-labelledby="weather-title">
+                <h3 class="font-body text-lg font-bold" id="weather-title">Погода у Львові</h3>
+                <iframe
+                  class="h-80 w-full max-w-md rounded-lg border-0"
+                  src="https://www.meteoblue.com/uk/weather/widget/daily/lviv_ukraine_702550?geoloc=fixed&amp;days=4&amp;tempunit=CELSIUS&amp;windunit=KILOMETER_PER_HOUR&amp;precipunit=MILLIMETER&amp;coloured=coloured&amp;pictoicon=1&amp;maxtemperature=1&amp;mintemperature=1&amp;precipitation=1&amp;precipitationprobability=0&amp;windspeed=0&amp;winddirection=0&amp;windgust=0&amp;uv=0&amp;humidity=0&amp;pressure=0&amp;spot=0&amp;layout=light"
+                  title="Віджет погоди у Львові (meteoblue)"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </section>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Про нас: що це за сервіс і як побудований каталог -->
+      <section class="bg-canvas py-10 md:py-16" id="about" aria-labelledby="about-title">
+        <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30">
+          <div class="flex max-w-3xl flex-col gap-4">
+            <h2 class="mb-4 break-words font-heading text-h2-compact font-semibold md:text-h2 mb-0" id="about-title">Про нас</h2>
+            <p>«Гурман-Інфо» — сервіс, який допомагає підібрати сир до вина і вино до сиру без сомельє-жаргону. Ми описуємо кожен продукт за смаковим профілем (кислотність, жирність, інтенсивність, витримка) і показуємо, чому пара працює.</p>
+            <p class="text-ink-muted">Каталог ми будуємо навколо українських крафтових сироварень і виноробень та поступово розширюємо. Відсоток збігу — орієнтир для смаку, а не вирок.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Заклик до дії: захоплення e-mail (кульмінація сторінки, останній блок перед підвалом) -->
+      <section class="bg-primary py-10 md:py-16 text-on-primary" id="subscribe" aria-labelledby="subscribe-title">
+        <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30 grid grid-cols-1 items-start gap-6 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h2 class="mb-4 break-words font-heading text-h2-compact font-semibold md:text-h2" id="subscribe-title">Дізнавайтесь про нові пари першим</h2>
+            <p>Щоп'ятниці — добірка з трьох пар до сезонних продуктів, нові виробники й короткі пояснення, чому пара працює.</p>
+            <p class="mt-3 text-sm">Без спаму: відписатися можна одним кліком.</p>
+          </div>
+          <form class="flex flex-col gap-4" action="#" method="get" novalidate data-subscribe-form>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-semibold" for="subscribe-email">Електронна пошта</label>
+              <input
+                class="min-h-12 w-full rounded-xl border-btn border-surface bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus-visible:outline-surface"
+                type="email"
+                id="subscribe-email"
+                name="email"
+                placeholder="name@example.com"
+                autocomplete="email"
+                required
+                aria-describedby="subscribe-error">
+            </div>
+            <label class="flex min-h-11 cursor-pointer items-center gap-3 text-sm">
+              <input class="size-6 accent-canvas focus-visible:outline-surface" type="checkbox" id="subscribe-consent" name="consent" required aria-describedby="subscribe-error">
+              <span>Погоджуюсь на <a class="underline hover:no-underline focus-visible:outline-surface" href="privacy.html">обробку даних</a></span>
+            </label>
+            <button class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-surface bg-surface text-primary hover:border-canvas hover:bg-canvas active:bg-surface-muted focus-visible:outline-surface w-full sm:w-auto sm:self-start" type="submit">Підписатися на розсилку</button>
+            <p class="rounded-lg bg-surface px-3 py-2 text-sm font-semibold text-error empty:hidden" id="subscribe-error" role="alert"></p>
+            <p class="rounded-lg bg-surface px-3 py-2 text-base font-semibold text-secondary empty:hidden" id="subscribe-status" role="status"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Підвал: бренд, навігація, контакти, копірайт, YouTube -->
+    <footer class="bg-surface-muted py-10 md:pt-16">
+      <div class="mx-auto w-full max-w-page px-4 sm:px-6 md:px-12 xl:px-30">
+        <div class="mb-8 flex flex-col gap-3 md:mb-12 md:max-w-md">
+          <a class="inline-flex min-h-11 items-center gap-3 self-start no-underline" href="#top">
+            <img class="size-10" src="assets/logo/logo.svg" alt="" width="40" height="40" loading="lazy">
+            <span class="font-heading text-logo font-semibold text-primary">Гурман-Інфо</span>
+          </a>
+          <p class="text-sm text-ink-muted">
+            Каталог українських крафтових сирів і вин із підбором гастрономічних пар за смаковим профілем.
+          </p>
+        </div>
+
+        <nav class="grid grid-cols-1 gap-8 md:grid-cols-2" aria-label="Навігація у підвалі">
+          <div>
+            <p class="mb-2 text-sm font-semibold">Розділи</p>
+            <ul class="grid grid-cols-1 gap-x-6 sm:grid-cols-2">
+              <li><a class="inline-flex min-h-11 items-center text-base no-underline transition-colors duration-150 hover:text-primary hover:underline" href="#pairing">Підібрати пару</a></li>
+              <li><a class="inline-flex min-h-11 items-center text-base no-underline transition-colors duration-150 hover:text-primary hover:underline" href="#how">Як це працює</a></li>
+              <li><a class="inline-flex min-h-11 items-center text-base no-underline transition-colors duration-150 hover:text-primary hover:underline" href="#popular">Популярні пари</a></li>
+              <li><a class="inline-flex min-h-11 items-center text-base no-underline transition-colors duration-150 hover:text-primary hover:underline" href="#producers">Виробники</a></li>
+              <li><a class="inline-flex min-h-11 items-center text-base no-underline transition-colors duration-150 hover:text-primary hover:underline" href="#contacts">Контакти</a></li>
+              <li><a class="inline-flex min-h-11 items-center text-base no-underline transition-colors duration-150 hover:text-primary hover:underline" href="#subscribe">Підписка</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="mb-2 text-sm font-semibold">Контакти</p>
+            <ul class="flex flex-col">
+              <li><a class="inline-flex min-h-11 items-center text-base no-underline transition-colors duration-150 hover:text-primary hover:underline break-all" href="mailto:hello@gurman-info.example">hello@gurman-info.example</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="mt-12 flex flex-col items-start gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex flex-col items-start sm:flex-row sm:items-center sm:gap-6">
+            <p class="text-ink-muted"><small>© 2026 Гурман-Інфо</small></p>
+            <a class="inline-flex min-h-11 items-center text-sm no-underline transition-colors duration-150 hover:text-primary hover:underline" href="privacy.html">Політика конфіденційності</a>
+          </div>
+          <ul class="flex gap-3">
+            <li><a class="inline-flex size-11 items-center justify-center rounded-full border border-line no-underline transition-colors duration-150 hover:bg-surface hover:text-primary" href="https://youtu.be/9RWkkGNMfSA" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube text-base" aria-hidden="true"></i><span class="sr-only">YouTube (відкриється в новій вкладці)</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Дані пар для підбору (читає js/forms.js) -->
+    <script type="application/json" id="pairs-data">
+[
+  {
+    "id": "goat-white",
+    "cheese": "козячий сир",
+    "wine": "біле вино",
+    "title": "Козячий сир + біле вино",
+    "pct": 94,
+    "text": "Кислотність вина балансує жирність сиру",
+    "img": "pair-goat-white",
+    "alt": "Козячий сир і келих білого вина на дерев'яній дошці"
+  },
+  {
+    "id": "blue-dessert",
+    "cheese": "дор блю",
+    "wine": "десертне вино",
+    "title": "Дор Блю + десертне вино",
+    "pct": 88,
+    "text": "Солодкість вина пом'якшує солоність сиру",
+    "img": "pair-blue-tokaji",
+    "alt": "Блакитний сир із цвіллю, мед і келих бурштинового десертного вина"
+  },
+  {
+    "id": "brie-sparkling",
+    "cheese": "брі",
+    "wine": "ігристе вино",
+    "title": "Брі + ігристе вино",
+    "pct": 81,
+    "text": "Бульбашки освіжають вершкову текстуру",
+    "img": "pair-brie-chardonnay",
+    "alt": "Сир брі з білою скоринкою і келих вина на дерев'яній дошці"
+  },
+  {
+    "id": "brie-chardonnay",
+    "cheese": "брі",
+    "wine": "шардоне",
+    "title": "Брі + шардоне",
+    "pct": 92,
+    "text": "Кремова текстура сиру підсилюється маслянистими нотами вина",
+    "img": "pair-brie-chardonnay",
+    "alt": "Сир брі з білою скоринкою і келих білого вина на дерев'яній дошці"
+  },
+  {
+    "id": "pecorino-sparkling",
+    "cheese": "пекоріно",
+    "wine": "ігристе",
+    "title": "Пекоріно + ігристе",
+    "pct": 90,
+    "text": "Мінеральна солоність і свіжі бульбашки врівноважують одна одну",
+    "img": "pair-pecorino-sparkling",
+    "alt": "Шматки твердого овечого сиру і келих ігристого вина"
+  },
+  {
+    "id": "brynza-riesling",
+    "cheese": "бринза",
+    "wine": "рислінг",
+    "title": "Бринза + рислінг",
+    "pct": 87,
+    "text": "Легка кислинка вина підкреслює молочну солодкість",
+    "img": "pair-brynza-riesling",
+    "alt": "Біла бринза із зеленню і келих світлого вина"
+  },
+  {
+    "id": "gouda-pinot",
+    "cheese": "гауда",
+    "wine": "пінот нуар",
+    "title": "Гауда + пінот нуар",
+    "pct": 86,
+    "text": "М'які танини підкреслюють горіхові ноти витриманого сиру",
+    "img": "pair-gouda-pinot",
+    "alt": "Витримана гауда з горіхами і келих світло-червоного вина"
+  },
+  {
+    "id": "blue-tokaji",
+    "cheese": "дор блю",
+    "wine": "токай",
+    "title": "Дор Блю + токай",
+    "pct": 85,
+    "text": "Солодке вино врівноважує гостроту блакитної цвілі",
+    "img": "pair-blue-tokaji",
+    "alt": "Блакитний сир із цвіллю, мед і келих бурштинового десертного вина"
+  },
+  {
+    "id": "mozzarella-sauvignon",
+    "cheese": "моцарела",
+    "wine": "совіньйон",
+    "title": "Моцарела + совіньйон",
+    "pct": 83,
+    "text": "Свіжа кислотність підкреслює ніжний молочний смак",
+    "img": "pair-mozzarella-sauvignon",
+    "alt": "Кульки моцарели з базиліком і келих білого вина"
+  }
+]
+    </script>
+  </body>
+</html>
