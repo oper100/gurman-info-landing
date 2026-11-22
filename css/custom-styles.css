@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Гурман-Інфо — custom-styles.css (ЛР №6, використано в ЛР №7)
+   Верстка виконана утилітами Tailwind CSS (класи в index.html). У цьому файлі
+   лише те, що утилітами записати незручно або неможливо:
+   1. Токени дизайн-системи (:root) — джерело істини; Tailwind бере значення
+      звідси через js/tailwind-config.js (colors → var(--color-*)).
+   2. Глобальний стан фокуса клавіатури (WCAG 2.2 AA).
+   3. Стилізація псевдоелементів <progress>.
+   4. Повага до prefers-reduced-motion.
+   ========================================================================== */
+
+/* ---------- 1. Design tokens (з Figma, ЛР №4; перенесено з ЛР №5) ---------- */
+:root {
+  /* Colors */
+  --color-primary: #6b2638;
+  --color-primary-hover: #571f2e;
+  --color-primary-pressed: #451825;
+  --color-on-primary: #f5f0e8;
+  --color-secondary: #59634a;
+  --color-on-secondary: #f5f0e8;
+  --color-accent: #c8754d;
+  --color-accent-text: #a25329;
+  --color-canvas: #f5f0e8;
+  --color-surface: #fffdf9;
+  --color-surface-muted: #e4ded3;
+  --color-ink: #211f1c;
+  --color-ink-muted: #5f5a52;
+  --color-line: #6f695f;
+  --color-line-subtle: #d9d2c5;
+  --color-focus-ring: #a25329;
+  --color-error: #b3261e;
+
+  /* Typography */
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Shadows */
+  --shadow-card: 0 4px 16px rgba(33, 31, 28, 0.08);
+  --shadow-card-hover: 0 8px 24px rgba(33, 31, 28, 0.14);
+}
+
+/* ---------- 2. Фокус клавіатури ---------- */
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* ---------- 3. <progress>: псевдоелементи браузерів ---------- */
+progress {
+  appearance: none;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background-color: var(--color-line-subtle);
+}
+
+progress::-webkit-progress-bar {
+  background-color: var(--color-line-subtle);
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--color-primary);
+}
+
+progress::-moz-progress-bar {
+  background-color: var(--color-primary);
+}
+
+/* ---------- 4. Рух ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
