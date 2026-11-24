@@ -5,7 +5,8 @@
 **Живі версії**
 
 - GitHub Pages: <https://oper100.github.io/gurman-info-landing/>
-- Netlify: <https://magnificent-pavlova-0ef064.netlify.app/>
+- Netlify: <https://gurman-info-landing.netlify.app/>
+- Vercel: <https://gurman-info-landing.vercel.app/>
 
 ![Десктопна версія](docs/screenshots/desktop.webp)
 
@@ -63,7 +64,7 @@ docs/screenshots/   знімки для README
 
 ## Публікація
 
-Сайт розгорнуто двома способами: **GitHub Pages** (гілка `main`, корінь репозиторію; оновлюється після кожного `git push`) і **Netlify** (статичний хостинг без етапу збирання: *Build command* порожня, *Publish directory* — корінь).
+Сайт розгорнуто двома способами: **GitHub Pages** (гілка `main`, корінь репозиторію; оновлюється після кожного `git push`) **Netlify** і **Vercel** (статичний хостинг без етапу збирання: *Build command* порожня, *Publish directory* / *Root Directory* — корінь; Vercel: *Framework Preset* — Other). Усі три платформи самі публікують нову версію після кожного `git push` у `main`.
 
 ## Автор
 
