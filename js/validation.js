@@ -1,8 +1,8 @@
 /* Форма зворотного зв'язку (#feedbackForm): клієнтська валідація на Vanilla JavaScript.
-   Правила: ім'я ≥ 2 символів (літери, пробіл, апостроф, дефіс), email за RegEx, телефон +380XXXXXXXXX,
-   повідомлення ≥ 10 символів, згода обов'язкова.
+   Правила: ім'я ≥ 2 літер, email за RegEx, телефон +380XXXXXXXXX, повідомлення ≥ 10 символів, згода обов'язкова.
    UI-стани поля: normal / focus (CSS :focus-visible) / error (червона рамка і підпис) / success (зелена рамка й позначка).
-   Помилка не показується, доки користувач не взаємодіяв з полем: input -> blur -> submit.
+   Помилка не показується, доки користувач не взаємодіяв з полем: input -> blur (після введення) -> submit.
+   Місце під підпис помилки зарезервоване в розмітці (min-h-5), тож поява помилки не зсуває макет і не «з'їдає» тап.
    Сервера немає: після успішної перевірки показується модальне вікно (імітація надсилання), форма очищається. */
 (function () {
   "use strict";
@@ -13,9 +13,12 @@
   }
 
   // ---------- Правила (RegEx і межі) ----------
-  var REGEX_EMAIL = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  // email: локальна частина без крапок на краях і подвійних крапок; домен із міток без дефіса на краях; зона ≥ 2 літер
+  var REGEX_EMAIL = /^[\w%+-]+(\.[\w%+-]+)*@([A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
   var REGEX_PHONE = /^\+380\d{9}$/;
   var REGEX_NAME = /^\p{L}[\p{L}\s'’.-]{1,59}$/u; // починається з літери; літери, пробіл, апостроф, крапка, дефіс
+  var MIN_LETTERS = 2;
+  var MAX_NAME = 60;
   var MIN_MESSAGE = 10;
 
   // ---------- Елементи ----------
@@ -24,7 +27,6 @@
   var submitBtn = document.getElementById("submitBtn");
   var overlay = document.getElementById("successModal");
   var closeBtn = document.getElementById("closeModalBtn");
-  var dialog = overlay.querySelector("[role=dialog]");
 
   var fields = {
     name: { input: document.getElementById("username"), error: document.getElementById("nameError"), check: checkName },
@@ -36,35 +38,37 @@
   var order = ["name", "email", "phone", "message", "agreement"];
   var STATE_CLASSES = ["border-line", "border-error", "border-secondary"];
 
-  // ---------- Правила окремими функціями: повертають текст помилки або порожній рядок ----------
+  // ---------- Правила окремими функціями: повертають текст помилки (короткий, в один рядок) або порожній рядок ----------
   function checkName(value) {
-    var v = value.trim();
-    if (v.length < 2) {
-      return "Ім'я повинно містити не менше 2 символів.";
+    var v = value.normalize("NFC").trim(); // NFC: «й», вставлене як «и» + позначка, вважається однією літерою
+    var letters = (v.match(/\p{L}/gu) || []).length;
+    if (letters < MIN_LETTERS) {
+      return "Мінімум 2 літери.";
     }
-    if (v.length > 60) {
-      return "Ім'я не повинно перевищувати 60 символів.";
+    if (v.length > MAX_NAME) {
+      return "Не більше 60 символів.";
     }
     if (!REGEX_NAME.test(v)) {
-      return "Ім'я може містити лише літери, пробіл, апостроф і дефіс.";
+      return "Лише літери, пробіл, ' та -.";
     }
     return "";
   }
 
   function checkEmail(value) {
-    return REGEX_EMAIL.test(value.trim()) ? "" : "Введіть коректну електронну адресу (наприклад: user@mail.com).";
+    return REGEX_EMAIL.test(value.trim()) ? "" : "Введіть коректний email.";
   }
 
   function checkPhone(value) {
-    return REGEX_PHONE.test(value.trim()) ? "" : "Формат має бути строго українським: +380XXXXXXXXX.";
+    return REGEX_PHONE.test(value.trim()) ? "" : "Формат: +380XXXXXXXXX";
   }
 
   function checkMessage(value) {
-    return value.trim().length >= MIN_MESSAGE ? "" : "Повідомлення повинно містити не менше " + MIN_MESSAGE + " символів.";
+    // Array.from рахує символи Unicode (емодзі — один символ), а не одиниці UTF-16
+    return Array.from(value.trim()).length >= MIN_MESSAGE ? "" : "Мінімум 10 символів.";
   }
 
   function checkAgreement(_value, input) {
-    return input.checked ? "" : "Підтвердьте згоду з політикою конфіденційності.";
+    return input.checked ? "" : "Потрібна згода з політикою.";
   }
 
   // ---------- UI-стани: showError / showSuccess / clearError ----------
@@ -77,8 +81,7 @@
   }
 
   function setIcon(input, kind) {
-    var wrap = input.parentElement;
-    wrap.querySelectorAll("[data-icon]").forEach(function (icon) {
+    input.parentElement.querySelectorAll("[data-icon]").forEach(function (icon) {
       icon.classList.toggle("hidden", icon.getAttribute("data-icon") !== kind);
     });
   }
@@ -88,7 +91,6 @@
     setIcon(field.input, "error");
     field.input.setAttribute("aria-invalid", "true");
     field.error.textContent = message;
-    field.error.classList.remove("hidden");
   }
 
   function showSuccess(field) {
@@ -96,7 +98,6 @@
     setIcon(field.input, "success");
     field.input.setAttribute("aria-invalid", "false");
     field.error.textContent = "";
-    field.error.classList.add("hidden");
   }
 
   function clearError(field) {
@@ -104,7 +105,22 @@
     setIcon(field.input, "none");
     field.input.setAttribute("aria-invalid", "false");
     field.error.textContent = "";
-    field.error.classList.add("hidden");
+  }
+
+  function invalidKeys() {
+    return order.filter(function (key) {
+      var f = fields[key];
+      return f.check(f.input.value, f.input) !== "";
+    });
+  }
+
+  // Рядок-підсумок після невдалого submit не застаріває: оновлюється, поки користувач виправляє поля
+  function refreshStatus() {
+    if (!statusLine.textContent) {
+      return;
+    }
+    var n = invalidKeys().length;
+    statusLine.textContent = n > 0 ? "Форму не надіслано: виправте поля з помилками (" + n + ")." : "";
   }
 
   // Повна перевірка поля: показує помилку або успіх
@@ -137,30 +153,49 @@
   }
 
   // ---------- Телефон: безпечна UX-логіка (не блокуємо агресивно, змінюємо лише зрозумілі речі) ----------
-  // 1) прибираємо літери, пробіли, дужки, дефіси; 2) «+» лише на початку; 3) 0XXXXXXXXX -> +380XXXXXXXXX;
-  // 4) 380XXXXXXXXX -> +380XXXXXXXXX; 5) не більше 13 символів (+380 і 9 цифр)
+  // 1) прибираємо літери, пробіли, дужки, дефіси; 2) «+» лише на початку; 3) 0XXXXXXXXX і +0XXXXXXXXX -> +380XXXXXXXXX;
+  // 4) 380XXXXXXXXX і 80XXXXXXXXX -> +380XXXXXXXXX; 5) не більше 13 символів (+380 і 9 цифр)
   function normalizePhone(raw) {
     var v = raw.replace(/[^\d+]/g, "").replace(/(?!^)\+/g, "");
+    if (v.indexOf("+0") === 0) {
+      v = v.slice(1);
+    }
     if (v.charAt(0) === "0") {
       v = "+38" + v;
     } else if (v.indexOf("380") === 0) {
       v = "+" + v;
+    } else if (v.indexOf("80") === 0 && v.length > 2 && v.indexOf("+") === -1) {
+      v = "+3" + v;
     }
     return v.slice(0, 13);
   }
 
-  // ---------- Динамічна валідація: input -> blur -> submit ----------
+  // Правка номера всередині рядка не відкидає курсор в кінець: позицію рахуємо за нормалізованою частиною до курсора
+  function applyPhoneNormalization(input) {
+    var raw = input.value;
+    var normalized = normalizePhone(raw);
+    if (normalized === raw) {
+      return;
+    }
+    var caret = input.selectionStart === null ? raw.length : input.selectionStart;
+    var newCaret = normalizePhone(raw.slice(0, caret)).length;
+    input.value = normalized;
+    if (document.activeElement === input) {
+      input.setSelectionRange(newCaret, newCaret);
+    }
+  }
+
+  // ---------- Динамічна валідація: input -> blur (після введення) -> submit ----------
   order.forEach(function (key) {
     var f = fields[key];
     f.touched = false;
+    f.dirty = false;
     var eventName = f.input.type === "checkbox" ? "change" : "input";
 
     f.input.addEventListener(eventName, function () {
+      f.dirty = true;
       if (key === "phone") {
-        var normalized = normalizePhone(f.input.value);
-        if (normalized !== f.input.value) {
-          f.input.value = normalized;
-        }
+        applyPhoneNormalization(f.input);
       }
       if (key === "message") {
         counter.textContent = f.input.value.length + " / " + f.input.maxLength;
@@ -170,11 +205,16 @@
       } else {
         quietCheck(key);
       }
+      refreshStatus();
     });
 
     f.input.addEventListener("blur", function () {
+      if (!f.dirty && !f.touched) {
+        return; // простий прохід Tab крізь порожнє поле помилки не показує
+      }
       f.touched = true;
       validators[key]();
+      refreshStatus();
     });
   });
 
@@ -182,6 +222,7 @@
   var lastFocused = null;
   var submitting = false;
   var openedAt = 0;
+  var downOnOverlay = false;
   var CLOSE_DELAY = 400; // мс: захист від випадкового закриття подвійним кліком або затиснутим Enter
 
   function setBackgroundInert(isInert) {
@@ -197,6 +238,7 @@
     openedAt = Date.now();
     overlay.classList.remove("hidden");
     overlay.classList.add("flex");
+    overlay.scrollTop = 0;
     document.body.classList.add("overflow-hidden"); // прокрутка сторінки під вікном вимкнена
     setBackgroundInert(true); // фокус і кліки не потрапляють на контент під вікном
     closeBtn.focus();
@@ -225,11 +267,16 @@
 
   closeBtn.addEventListener("click", closeModalSafely);
 
-  // Клік по затемненню закриває вікно, а клік усередині білої картки — ні (перевіряємо, що target — сам оверлей)
+  // Клік по затемненню закриває вікно, а клік усередині білої картки — ні (target має бути сам оверлей),
+  // причому й натискання кнопки миші мало початися на оверлеї: виділення тексту в картці з відпусканням на фоні не закриває вікно
+  overlay.addEventListener("mousedown", function (event) {
+    downOnOverlay = event.target === overlay;
+  });
   overlay.addEventListener("click", function (event) {
-    if (event.target === overlay) {
+    if (event.target === overlay && downOnOverlay) {
       closeModalSafely();
     }
+    downOnOverlay = false;
   });
 
   document.addEventListener("keydown", function (event) {
@@ -246,8 +293,8 @@
   });
 
   // ---------- Submit ----------
-  // Клік мишею/тапом по «Надіслати» не знімає фокус з поля: інакше blur показав би помилку, кнопка зсунулась би вниз
-  // і клік не дійшов би до неї. Перевірку всіх полів усе одно виконує submit.
+  // Клік мишею/тапом по «Надіслати» не знімає фокус з поля: інакше blur міг би показати помилку раніше за click.
+  // Перевірку всіх полів усе одно виконує submit.
   submitBtn.addEventListener("mousedown", function (event) {
     event.preventDefault();
   });
@@ -255,6 +302,7 @@
   function resetStates() {
     order.forEach(function (key) {
       fields[key].touched = false;
+      fields[key].dirty = false;
       clearError(fields[key]);
     });
     counter.textContent = "0 / " + fields.message.input.maxLength;

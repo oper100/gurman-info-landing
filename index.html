@@ -568,7 +568,7 @@
           <div class="mx-auto flex max-w-3xl flex-col gap-4">
             <h2 class="break-words font-heading text-h2-compact font-semibold md:text-h2" id="feedback-title">Напишіть нам</h2>
             <p class="text-ink-muted">Питання про підбір пар, співпраця для виробників чи відгук: заповніть форму, і ми відповімо на електронну пошту.</p>
-            <form class="mt-4 grid grid-cols-1 gap-6 rounded-3xl border border-line-subtle bg-surface p-5 shadow-card sm:p-8 md:grid-cols-2" id="feedbackForm" action="#" method="post" novalidate>
+            <form class="mt-4 grid grid-cols-1 gap-x-6 gap-y-2 rounded-3xl border border-line-subtle bg-surface p-5 shadow-card sm:p-8 md:grid-cols-2" id="feedbackForm" action="#" method="post" novalidate>
               <div class="flex flex-col gap-2">
                 <label class="text-sm font-semibold" for="username">Ім'я</label>
                 <div class="relative">
@@ -576,7 +576,7 @@
                   <i class="fa-solid fa-circle-check absolute right-4 top-4 hidden text-secondary" data-icon="success" aria-hidden="true"></i>
                   <i class="fa-solid fa-circle-exclamation absolute right-4 top-4 hidden text-error" data-icon="error" aria-hidden="true"></i>
                 </div>
-                <p class="hidden text-sm font-semibold text-error" id="nameError"></p>
+                <p class="min-h-5 text-sm font-semibold text-error" id="nameError"></p>
               </div>
               <div class="flex flex-col gap-2">
                 <label class="text-sm font-semibold" for="email">Електронна пошта</label>
@@ -585,7 +585,7 @@
                   <i class="fa-solid fa-circle-check absolute right-4 top-4 hidden text-secondary" data-icon="success" aria-hidden="true"></i>
                   <i class="fa-solid fa-circle-exclamation absolute right-4 top-4 hidden text-error" data-icon="error" aria-hidden="true"></i>
                 </div>
-                <p class="hidden text-sm font-semibold text-error" id="emailError"></p>
+                <p class="min-h-5 text-sm font-semibold text-error" id="emailError"></p>
               </div>
               <div class="flex flex-col gap-2">
                 <label class="text-sm font-semibold" for="phone">Телефон</label>
@@ -595,7 +595,7 @@
                   <i class="fa-solid fa-circle-exclamation absolute right-4 top-4 hidden text-error" data-icon="error" aria-hidden="true"></i>
                 </div>
                 <p class="text-sm text-ink-muted" id="phoneHint">Формат: +380XXXXXXXXX (лише цифри, без пробілів)</p>
-                <p class="hidden text-sm font-semibold text-error" id="phoneError"></p>
+                <p class="min-h-5 text-sm font-semibold text-error" id="phoneError"></p>
               </div>
               <div class="flex flex-col gap-2">
                 <label class="text-sm font-semibold" for="topic">Тема звернення <span class="font-normal text-ink-muted">(необов'язково)</span></label>
@@ -615,19 +615,19 @@
                   <i class="fa-solid fa-circle-exclamation absolute right-4 top-4 hidden text-error" data-icon="error" aria-hidden="true"></i>
                 </div>
                 <div class="flex items-start justify-between gap-4">
-                  <p class="hidden text-sm font-semibold text-error" id="messageError"></p>
+                  <p class="min-h-5 text-sm font-semibold text-error" id="messageError"></p>
                   <p class="ml-auto text-sm text-ink-muted" id="messageCounter" aria-hidden="true">0 / 1000</p>
                 </div>
               </div>
               <div class="flex flex-col gap-2 md:col-span-2">
                 <label class="flex min-h-11 cursor-pointer items-start gap-3 text-sm">
                   <input class="mt-0.5 size-6 shrink-0 accent-primary" type="checkbox" id="agreement" name="agreement" required aria-describedby="agreementError" aria-invalid="false">
-                  <span>Погоджуюсь з <a class="underline hover:no-underline" href="privacy.html">політикою конфіденційності</a></span>
+                  <span>Погоджуюсь з <a class="underline hover:no-underline" href="privacy.html" target="_blank" rel="noopener">політикою конфіденційності<span class="sr-only"> (відкриється в новій вкладці)</span></a></span>
                 </label>
-                <p class="hidden text-sm font-semibold text-error" id="agreementError"></p>
+                <p class="min-h-5 text-sm font-semibold text-error" id="agreementError"></p>
               </div>
               <p class="rounded-lg border border-line-subtle bg-canvas px-3 py-2 text-sm font-semibold text-error empty:hidden md:col-span-2" id="formStatus" role="status"></p>
-              <div class="md:col-span-2">
+              <div class="pt-4 md:col-span-2">
                 <button class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-btn px-6 py-3 text-base font-semibold no-underline transition-colors duration-150 ease-out border-primary bg-primary text-on-primary hover:border-primary-hover hover:bg-primary-hover active:bg-primary-pressed disabled:cursor-not-allowed disabled:opacity-60 w-full sm:w-auto" type="submit" id="submitBtn">Надіслати</button>
               </div>
             </form>
@@ -726,8 +726,8 @@
     </footer>
 
     <!-- Модальне вікно успіху: з'являється лише після успішної клієнтської валідації (js/validation.js) -->
-    <div class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-4" id="successModal">
-      <div class="w-full max-w-md rounded-3xl bg-surface p-6 shadow-card-hover sm:p-8" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalText" tabindex="-1">
+    <div class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/60 p-4" id="successModal">
+      <div class="m-auto w-full max-w-md rounded-3xl bg-surface p-6 shadow-card-hover sm:p-8" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalText" tabindex="-1">
         <span class="inline-flex size-14 items-center justify-center rounded-full bg-secondary text-on-secondary" aria-hidden="true"><i class="fa-solid fa-check text-2xl"></i></span>
         <h2 class="mt-4 font-heading text-h3 font-semibold" id="modalTitle">Дякуємо!</h2>
         <p class="mt-2 text-ink-muted" id="modalText">Форма успішно пройшла клієнтську валідацію. Демонстрація успішного надсилання: дані нікуди не надсилаються.</p>
